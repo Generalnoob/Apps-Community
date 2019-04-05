@@ -48,13 +48,15 @@
       register: cfgcheck
 
     # LABELS ######################################################################
-    - name: 'Adding Traefik'
+    - name: 'Adding Traefik For Sonarr Transmission'
       set_fact:
+      # Sonarr Transmission ##########################################
         pg_labels:
           traefik.enable: 'true'
           traefik.port: '{{intport}}'
           traefik.frontend.auth.forward.address: '{{gauth}}'
           traefik.frontend.rule: 'Host:{{pgrole}}.{{domain.stdout}},{{tldset}}'
+      # Radarr Transmission ##########################################
 
     - name: 'Setting PG Volumes'
       set_fact:
