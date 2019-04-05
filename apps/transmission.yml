@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Title:      Transmissionbt (with OpenVPN, WebProxy, RSS)
+# Title:      Transmissionx2 (with OpenVPN, Jackett, WebProxy)
 # Author(s):  Eric Petit, Josh Elsasser, Bryan Varner, Charles Kerr, Kristian Haugene, nning
 # URL:        https://transmissionbt.com/ - https://github.com/haugene/docker-transmission-openvpn
 # GNU:        General Public License v2.0, v3.0
@@ -12,14 +12,18 @@
     # FACTS #######################################################################
     - name: 'Set Known Facts'
       set_fact:
-        pgrole: 'transmission'
-        pgrole2: 'transmission-rss'
+        pgrole: 'rtransmission' #Radarr Transmission
+        pgrole2: 'stransmission' #Sonarr Transmission
+        pgrole3: 'Jackett' #Jackett
         intport: '9091'
         extport: '9091'
-        intport2: '8888'
-        extport2: '8888'
+        intport2: '9092'
+        extport2: '9092'
+        intport3: '9093'
+        extport3: '9093'
         image: 'haugene/transmission-openvpn:latest'
-        image2: 'haugene/transmission-rss:latest'
+        image2: 'haugene/transmission-openvpn:latest'
+        image3: 'haugene/transmission-rss:latest'
 
     # CORE (MANDATORY) ############################################################
     - name: 'Including cron job'
