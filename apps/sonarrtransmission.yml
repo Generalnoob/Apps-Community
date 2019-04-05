@@ -12,8 +12,8 @@
     # FACTS #######################################################################
     - name: 'Set Known Facts'
       set_fact:
-        pgrole: 'transmission'
-        pgrole2: 'transmission-rss'
+        pgrole: 'stransmission'
+        pgrole2: 'stransmission-rss'
         intport: '9091'
         extport: '9091'
         intport2: '8888'
