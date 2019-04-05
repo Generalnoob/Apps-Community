@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Title:      Transmissionx2 (with OpenVPN, WebProxy, RSS, Jackett)
+# Title:      Sonarr Transmission (with OpenVPN, WebProxy, RSS)
 # Author(s):  Eric Petit, Josh Elsasser, Bryan Varner, Charles Kerr, Kristian Haugene, nning
 # URL:        https://transmissionbt.com/ - https://github.com/haugene/docker-transmission-openvpn
 # GNU:        General Public License v2.0, v3.0
@@ -12,26 +12,14 @@
     # FACTS #######################################################################
     - name: 'Set Known Facts'
       set_fact:
-      # Sonarr Transmission ##########################################
-      pgrole: 'stransmission'
-      intport: '9091'
-      extport: '9091'
-      image: 'haugene/transmission-openvpn:latest'
-      # Transmission RSS #############################################
-      pgrole2: 'transmission-rss'
-      intport2: '8888'
-      extport2: '8888'
-      image2: 'haugene/transmission-rss:latest'
-      # Radarr Transmission ##########################################
-      pgrole3: 'rtransmission'
-      intport3: '9092'
-      extport3: '9092'
-      image3: 'haugene/transmission-openvpn:latest'
-      # Jackett ######################################################
-      pgrole3: 'jackett'
-      intport3: '9117'
-      extport3: '9117'
-      image3: 'linuxserver/jackett'      
+        pgrole: 'transmission'
+        pgrole2: 'transmission-rss'
+        intport: '9091'
+        extport: '9091'
+        intport2: '8888'
+        extport2: '8888'
+        image: 'haugene/transmission-openvpn:latest'
+        image2: 'haugene/transmission-rss:latest'
 
     # CORE (MANDATORY) ############################################################
     - name: 'Including cron job'
@@ -48,15 +36,13 @@
       register: cfgcheck
 
     # LABELS ######################################################################
-    - name: 'Adding Traefik For Sonarr Transmission'
+    - name: 'Adding Traefik'
       set_fact:
-      # Sonarr Transmission ##########################################
         pg_labels:
           traefik.enable: 'true'
           traefik.port: '{{intport}}'
           traefik.frontend.auth.forward.address: '{{gauth}}'
           traefik.frontend.rule: 'Host:{{pgrole}}.{{domain.stdout}},{{tldset}}'
-      # Radarr Transmission ##########################################
 
     - name: 'Setting PG Volumes'
       set_fact:
